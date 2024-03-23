@@ -4272,34 +4272,6 @@ list.pokemon.forEach((pokemon, index) => {
 });
 
 
-function findTheycleForWeakness (eachPokemonWeaknes) {
-  const appendIconList = []
-
-  wicons.forEach((element) => {
-
-    let textWeakness = element.text
-    let iconWeakness = element.icon
-
-    if (eachPokemonWeaknes.includes(textWeakness)) {
-      appendIconList.push(iconWeakness)
-    }
-  })
-
-  return appendIconList
-
-}
-
-
-// #### MILESTONE 3
-// Trasformare la lista delle debolezze da elenco separato da virgole a singole icone tramite lista "wicons"
-// "wicons" è un array object ovver un array con dentro gli object
-// Vogliamo che al posto della lista delle debolezze compaiano le icone
-// Selezioniamo le stringhe presenti nella lista array "weakness"
-// Lo confrontiamo con i valori presenti all'interno dell'array "wicons"
-
-
-
-
 // #### MILESTONE 4  
 // Aggiungere un'indicazione della lunghezza dei pokemon visibili prima della lista
 
@@ -4356,4 +4328,30 @@ function generatorCard (pokemon) {
       </div>
   </li>
   `;
+};
+
+
+// #### MILESTONE 3
+// Trasformare la lista delle debolezze da elenco separato da virgole a singole icone tramite lista "wicons"
+// "wicons" è un array object ovvero un array con dentro gli object
+// Vogliamo che al posto della lista delle debolezze compaiano le icone
+// Selezioniamo le stringhe presenti nella lista array "weakness"
+// Lo confrontiamo con i valori presenti all'interno dell'array "wicons"
+// Ritorniamo l'icona che condivide con la chiave "text" lo stesso indice
+
+function findTheycleForWeakness (eachPokemonWeaknes) {
+  const appendIconList = []
+
+  wicons.forEach((element) => {
+
+    let textWeakness = element.text
+    let iconWeakness = element.icon
+
+    if (eachPokemonWeaknes.includes(textWeakness)) {
+      appendIconList.push(iconWeakness)
+    }
+  })
+
+  return appendIconList
+
 };
