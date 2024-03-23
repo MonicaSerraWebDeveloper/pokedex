@@ -64,6 +64,7 @@
 //     "Psychic"
 //     ]
 // }
+
 //LISTA DEI POKEMON
 let list = {
     "pokemon": [{
@@ -4232,48 +4233,99 @@ const cardContainer = document.getElementById('poke-list');
 // #### MILESTONE 2  
 //   Aggiungere alle singole caratteristiche di ciascun pokemon i tipi - sotto forma di badge - e le debolezze sotto forma di lista con virgole es. (Grass, Poison)
 
+// list { pokemon:[ {[]}, {[]}, {[]}, ...]}
+
+// Andiamo a fare un ciclo forEach dentro la variabile list selezioniamo l'object pokemon che è un array
+
+const onlyTextWeakness = []
+const onlyIconWeakness = []
+
+let exampleWeakness = ['Water', 'Dark', 'Electric']
+
+// for (let i = 0; i < list.pokemon.length; i++) {
+
+  // let everyPokemonWeaknessList = list.pokemon[i].weaknesses
+  // const listWeakness = `${appendIconList}`;
+  // weaknessContainer.innerHTML += listWeakness;
+
+// }
+
+
 list.pokemon.forEach((pokemon, index) => {
-   generatorCard (pokemon)
+  // con questa funzione appendiamo nel DOM le card di ogni singolo elemento, che è un pokemon, presente nell'array "pokemon"
+  generatorCard (pokemon)
 
-   const typeContainer = document.querySelectorAll('.type')[index];
+  const typeContainer = document.querySelectorAll('.type')[index];
 
-   for (let i = 0; i < pokemon.type.length; i++) {
+    for (let i = 0; i < pokemon.type.length; i++) {
       const typeBadge = `
       <span class="me-2 badge bg-secondary"> ${pokemon.type[i]} </span>
       `;
       typeContainer.innerHTML += typeBadge;
   }
+
+  const weaknessContainer = document.querySelectorAll('.weakness')[index];
+
+  const listWeakness = `${findTheycleForWeakness (pokemon.weaknesses).join(' ')}`;
+  weaknessContainer.innerHTML += listWeakness;
+ 
 });
+
+
+function findTheycleForWeakness (eachPokemonWeaknes) {
+  const appendIconList = []
+
+  wicons.forEach((element) => {
+
+    let textWeakness = element.text
+    let iconWeakness = element.icon
+
+    if (eachPokemonWeaknes.includes(textWeakness)) {
+      appendIconList.push(iconWeakness)
+    }
+  })
+
+  return appendIconList
+
+}
+
 
 // #### MILESTONE 3
 // Trasformare la lista delle debolezze da elenco separato da virgole a singole icone tramite lista "wicons"
+// "wicons" è un array object ovver un array con dentro gli object
+// Vogliamo che al posto della lista delle debolezze compaiano le icone
+// Selezioniamo le stringhe presenti nella lista array "weakness"
+// Lo confrontiamo con i valori presenti all'interno dell'array "wicons"
+
+
+
 
 // #### MILESTONE 4  
 // Aggiungere un'indicazione della lunghezza dei pokemon visibili prima della lista
 
-const shownCardsContainer = document.querySelector('#results');
+// const shownCardsContainer = document.querySelector('#results');
 
-const searchButton = document.querySelector('.btn-search');
+// const searchButton = document.querySelector('.btn-search');
 
-searchButton.addEventListener('click', function() {
+// searchButton.addEventListener('click', function() {
 
-  cardContainer.innerHTML = '';
+//   cardContainer.innerHTML = '';
 
-  const userSearch = document.querySelector('#filter').value;
+//   const userSearch = document.querySelector('#filter').value;
 
-  const pokemonFound = [];
-  for(let i = 0; i < list.pokemon.length; i++) {
-    if (list.pokemon[i].name.toLowerCase().includes(userSearch.toLowerCase())) {
-      pokemonFound.push(list.pokemon[i])
-      generatorCard (list.pokemon[i])
+//   const pokemonFound = [];
+//   for(let i = 0; i < list.pokemon.length; i++) {
+//     if (list.pokemon[i].name.toLowerCase().includes(userSearch.toLowerCase())) {
+//       pokemonFound.push(list.pokemon[i])
+//       generatorCard (list.pokemon[i])
 
-    }
-  }
+//     }
+//   }
 
-  console.log(pokemonFound);
-})
+//   console.log(pokemonFound);
+// })
 
-shownCardsContainer.innerHTML = `Pokemon trovati: ${list.pokemon.length} / ${list.pokemon.length}`
+// shownCardsContainer.innerHTML = `Pokemon trovati: ${list.pokemon.length} / ${list.pokemon.length}`
 
 // #### MILESTONE 5 
 // Aggiungere la logica per i bottoni di ricerca e reset. Scrivendo nell'input e premendo il bottone cerca dovrà essere aggiornata la lista dei pokemon visibili con solo quelli che contengono l'input inserito dall'utente. <br/>
@@ -4287,21 +4339,21 @@ function generatorCard (pokemon) {
  
   cardContainer.innerHTML += `
   <li class="list-group-item col-2">
-              <div class="card">
-                  <div class="card-body">
-                      <div class="content d-flex flex-column">
-                          <span class="fw-bold">${pokemon.name}</span>
-                          <div class="img-cnt d-flex justify-content-center align-items-center">
-                              <img src="${pokemon.img}" alt="">
-                          </div>
-                      </div>
-                      <div class="special-badge badge my-2">
-                          Weight: ${pokemon.weight} , Height: ${pokemon.height}
-                      </div>
-                      <div class="py-2 type"></div>
-                      <div class="py-2">${pokemon.weaknesses.join(', ')}</div>
+      <div class="card">
+          <div class="card-body">
+              <div class="content d-flex flex-column">
+                  <span class="fw-bold">${pokemon.name}</span>
+                  <div class="img-cnt d-flex justify-content-center align-items-center">
+                      <img src="${pokemon.img}" alt="">
                   </div>
               </div>
-          </li>
+              <div class="special-badge badge my-2">
+                  Weight: ${pokemon.weight} , Height: ${pokemon.height}
+              </div>
+              <div class="py-2 type"></div>
+              <div class="py-2 weakness"></div>
+          </div>
+      </div>
+  </li>
   `;
 };
